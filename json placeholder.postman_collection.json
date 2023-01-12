@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "c45f7171-5f62-4141-a278-235b7b5064c9",
+		"name": "json placeholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24547151"
+	},
+	"item": [
+		{
+			"name": "get posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}posts",
+					"host": [
+						"{{baseUrl}}posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"should verify response status code\", () => {",
+							"//console.log(pm.response)",
+							"   //pm.response.to.have.status(200);",
+							"pm.expect(pm.response.code).to.eql(200)",
+							"pm.expect(pm.response.code).to.be.oneOf([200, 404])",
+							"pm.expect(pm.response.code).to.be.a(\"number\")",
+							"})",
+							"",
+							"pm.test(\"should verify response Time\", () => {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(120)",
+							"})",
+							"pm.test (\"should verify response status\", () =>{",
+							"    pm.expect(pm.response.status).to.eql(\"OK\");",
+							"    pm.expect(pm.response.status).to.be.a(\"string\");",
+							"})",
+							"pm.test(\"should verify post Id\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    console.log(responseBody[0].id);",
+							"    pm.expect(responseBody[0].id).to.eql(1);",
+							"})",
+							"pm.test(\"should verify name lenght\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody[1].name).to.have.lengthOf(41);",
+							"})",
+							"pm.test(\"should verify response email\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody[1].email).to.include(\"@\");",
+							"})",
+							"",
+							"pm.test(\"should verify all response email\", () => {",
+							"const responseBody = pm.response.json();",
+							"responseBody.map(object => {",
+							"    pm.expect(object.email).to.include(\"@\");",
+							"})",
+							"})",
+							"",
+							"pm.test(\"should verify content type response\", () => {",
+							"    pm.response.to.have.header(\"Server-Timing\");",
+							"})",
+							"",
+							"pm.test(\"should verify content type value\", () => {",
+							"    pm.expect(pm.response.headers.get(\"Transfer-Encoding\")).to.eql(\"chunked\");",
+							"    })",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}comments",
+					"host": [
+						"{{baseUrl}}comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post  post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"userId\": {{userId}},\n    \"id\": 1526,\n    \"title\": \"{{postTitle}}\",\n    \"body\": \"{{postBody}}\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}posts",
+					"host": [
+						"{{baseUrl}}posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Leanne Graham\",\n    \"username\": \"{{username}}\",\n    \"email\": \"test@test.pl\",\n    \"address\": {\n      \"street\": \"Kulas Light\",\n      \"suite\": \"Apt. 556\",\n      \"city\": \"Gwenborough\",\n      \"zipcode\": \"92998-3874\",\n      \"geo\": {\n        \"lat\": \"-37.3159\",\n        \"lng\": \"81.1496\"\n      }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}users/1",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}users/1",
+					"host": [
+						"{{baseUrl}}users"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get comments params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}comments?postId=2&postId=5&_limit=5",
+					"host": [
+						"{{baseUrl}}comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "2"
+						},
+						{
+							"key": "postId",
+							"value": "5"
+						},
+						{
+							"key": "_limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://jsonplaceholder.typicode.com/",
+			"type": "string"
+		}
+	]
+}
