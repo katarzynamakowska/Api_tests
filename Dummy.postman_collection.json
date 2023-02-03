@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "dadc76e6-9ebf-498c-9feb-8fa86626e047",
+		"name": "Dummy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24547151"
+	},
+	"item": [
+		{
+			"name": "get employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"response Time test\", function () {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(400)",
+							"});",
+							"pm.test(\"success message test\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.message).to.include(\"Successfully\")",
+							"});",
+							"pm.test(\"Returns numeric employee salary\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.form.employee_salary).to.match(/^[0-9]$/);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}employees",
+					"host": [
+						"{{baseUrl}}employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create record",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"response Time test\", function () {",
+							"    pm.expect(pm.response.responseTime).to.lessThan(400)",
+							"});",
+							"pm.test(\"success message test\", function () {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody.message).to.include(\"Record has been added\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": 25,\n\"employee_name\": \"Doris Test\",\n\"employee_salary\": 69800,\n\"employee_age\": 70,\n\"profile_image\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}create",
+					"host": [
+						"{{baseUrl}}create"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://dummy.restapiexample.com/api/v1/",
+			"type": "string"
+		}
+	]
+}
